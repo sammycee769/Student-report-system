@@ -28,7 +28,7 @@ class AcademicSession(models.Model):
 
 class Course(models.Model):
     department = models.ForeignKey(Department,on_delete=models.PROTECT,related_name='courses')
-    course_code = models.CharField(max_length=20,unique=True)
+    course_code = models.CharField(max_length=20,primary_key=True,unique=True)
     title = models.CharField(max_length=200)
     credit_units = models.PositiveSmallIntegerField(validators=[MinValueValidator(1),MaxValueValidator(6)])
     level = models.CharField(max_length=3, choices=LEVEL_CHOICES,default="100")

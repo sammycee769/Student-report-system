@@ -2,21 +2,26 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="PY-261.23567.174">
     <data-source name="postgres@localhost" uuid="97b55ef7-f523-4d65-a5c3-a5ef3c4b0ce8">
-      <database-info product="PostgreSQL" version="16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.13" exact-driver-version="42.7">
+      <database-info product="PostgreSQL" version="16.14 (Ubuntu 16.14-0ubuntu0.24.04.1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.14" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <user-name>gotask_user</user-name>
+      <user-name>postgres</user-name>
       <schema-mapping>
         <introspection-scope>
           <node negative="1">
+            <node kind="database" negative="1">
+              <name qname="@" />
+              <name qname="studentresultportal_db" />
+              <name qname="postgres" />
+            </node>
             <node kind="database" qname="@">
               <node kind="schema" qname="@" />
             </node>
             <node kind="database">
-              <name qname="postgres" />
               <name qname="studentresultportal_db" />
+              <name qname="postgres" />
               <node kind="schema" negative="1" />
             </node>
           </node>
