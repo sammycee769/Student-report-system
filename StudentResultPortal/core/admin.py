@@ -14,5 +14,35 @@ class DepartmentAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 @admin.register(User)
-class UserAdmin(ModelAdmin):
+class UserAdmin(BaseUserAdmin):
     list_display = ('username','email','is_staff','is_active','last_login')
+    fieldsets = (
+        (None, {"fields": ("username", "password")}),
+        (("Personal info"), {"fields": ("first_name", "last_name", "email")}),
+        (
+            ("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "role",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (("Important dates"), {"fields": ("last_login", "created_at", "updated_at")}),
+    )
+    readonly_fields = ("created_at","updated_at")
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("username", "email", "first_name", "last_name","password","role"),
+            },
+        ),
+    )
+    search_fields = ("email","username","first_name","last_name")
+    ordering = (["created_at"])

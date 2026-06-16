@@ -1,8 +1,9 @@
 import code
 from loguru import logger
 
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 
 from core.models import Department
@@ -69,3 +70,8 @@ from rest_framework.viewsets import ModelViewSet
 class DepartmentViewSet(ModelViewSet):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
+
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH']:
+            return [IsAdminUser()]
+        return [AllowAny()]
