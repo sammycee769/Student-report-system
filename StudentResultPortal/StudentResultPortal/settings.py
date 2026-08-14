@@ -28,8 +28,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    "localhost,127.0.0.1"
+).split(",")
 
 # Application definitionhttp://127.0.0.1:8000/
 
@@ -46,11 +48,13 @@ INSTALLED_APPS = [
     'results',
     'reports',
     'core',
+    'drf_yasg'
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -129,7 +133,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 AUTH_USER_MODEL ='core.User'
 
 REST_FRAMEWORK = {
@@ -144,3 +153,13 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+DEFAULT_FROM_EMAIL = "Result Portal <no-reply@resultportal.com>"

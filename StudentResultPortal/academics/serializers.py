@@ -16,7 +16,7 @@ class CourseSerialiser(serializers.ModelSerializer):
 class AcademicSessionSerialiser(serializers.ModelSerializer):
     class Meta:
         model = AcademicSession
-        fields = ['name','year','semester','is_current','start_date','end-date']
+        fields = ['name','year','semester','is_current','start_date','end_date']
 
 class ReadAcademicSessionSerialiser(serializers.ModelSerializer):
     class Meta:

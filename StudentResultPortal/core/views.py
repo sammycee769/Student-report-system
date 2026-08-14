@@ -1,4 +1,6 @@
 import code
+
+from django.core.mail import send_mail
 from loguru import logger
 
 from rest_framework import status, permissions
@@ -75,3 +77,20 @@ class DepartmentViewSet(ModelViewSet):
         if self.request.method in ['POST', 'PUT', 'PATCH']:
             return [IsAdminUser()]
         return [AllowAny()]
+
+@api_view(['POST'])
+def send_message(request):
+    message = request.data.get('message')
+    email = request.data.get('email')
+    subject = request.data.get('subject')
+
+    if not message or not email or not subject:
+        return Response(
+            {"error": "All fields are required"},status=status.HTTP_400_BAD_REQUEST)
+    try:
+        send_mail(subject=subject, message=message,from_email="no-reply@resultportal.com", recipient_list=[email])
+        return Response(
+            {"message": "Mail sent successfully"}, status=status.HTTP_200_OK )
+    except Exception:
+        return Response(
+            {"error": "Failed to send email"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
